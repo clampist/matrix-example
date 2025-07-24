@@ -1,0 +1,20 @@
+name: CI - Branch
+on:
+  push:
+    branches-ignore: [master, release/**]
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  backend-p0-p1:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: bash scripts/backend_p0_p1.sh
+
+  ui-automation:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: bash scripts/ui_automation.sh

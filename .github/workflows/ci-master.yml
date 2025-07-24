@@ -1,0 +1,40 @@
+name: CI - Master
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  ut:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    continue-on-error: true
+    steps:
+      - run: bash scripts/ut.sh
+
+  integration-test:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: true
+    steps:
+      - run: bash scripts/integration_test.sh
+
+  backend-p0-p1:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    continue-on-error: true
+    steps:
+      - run: bash scripts/backend_p0_p1.sh
+
+  performance:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - run: bash scripts/performance.sh
