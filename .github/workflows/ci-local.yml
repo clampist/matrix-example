@@ -6,8 +6,6 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/build.yml
-    steps:
-      - uses: actions/checkout@v4
 
   ut:
     needs: build
@@ -15,6 +13,7 @@ jobs:
     timeout-minutes: 10
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/ut.sh
 
   integration-test:
@@ -23,6 +22,7 @@ jobs:
     timeout-minutes: 15
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/integration_test.sh
 
   p0-backend:
@@ -31,6 +31,7 @@ jobs:
     timeout-minutes: 20
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/p0_backend.sh
 
   smart-cases:
@@ -39,6 +40,7 @@ jobs:
     timeout-minutes: 20
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/smart_cases.sh
 
   new-cases:
@@ -47,6 +49,7 @@ jobs:
     timeout-minutes: 20
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/new_cases.sh
 
   formatting:
@@ -54,6 +57,7 @@ jobs:
     timeout-minutes: 5
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/format_check.sh
 
   security:
@@ -61,6 +65,7 @@ jobs:
     timeout-minutes: 5
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/security_scan.sh
 
   sonar:
@@ -68,4 +73,5 @@ jobs:
     timeout-minutes: 10
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/sonar_scan.sh

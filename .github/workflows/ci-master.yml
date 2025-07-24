@@ -13,6 +13,7 @@ jobs:
     timeout-minutes: 10
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/ut.sh
 
   integration-test:
@@ -21,6 +22,7 @@ jobs:
     timeout-minutes: 15
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/integration_test.sh
 
   backend-p0-p1:
@@ -29,6 +31,7 @@ jobs:
     timeout-minutes: 25
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/backend_p0_p1.sh
 
   performance:
@@ -37,4 +40,5 @@ jobs:
     timeout-minutes: 30
     continue-on-error: true
     steps:
+      - uses: actions/checkout@v4
       - run: bash scripts/performance.sh
