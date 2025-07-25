@@ -1,8 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "[ut.sh] Running smart tests..."
+echo "[smart_cases.sh] Running smart tests..."
 
 echo ./gradlew test --tests "*Smart*"
 
-echo "[ut.sh] smart tests completed."
+echo "[smart_cases.sh] smart tests completed."

@@ -1,8 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "[ut.sh] Running dependencyCheckAnalyze..."
+echo "[security_scan.sh] Running dependencyCheckAnalyze..."
 
 echo ./gradlew dependencyCheckAnalyze
 
-echo "[ut.sh] dependencyCheckAnalyze completed."
+echo "[security_scan.sh] dependencyCheckAnalyze completed."
