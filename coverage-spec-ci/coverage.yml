@@ -13,4 +13,5 @@ jobs:
       #     path: ./coverage-files
 
       - name: Merge Coverage
+        uses: actions/checkout@v4
         run: bash scripts/coverage.sh
