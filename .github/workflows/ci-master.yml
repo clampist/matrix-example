@@ -10,8 +10,6 @@ jobs:
   ut:
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - run: bash scripts/ut.sh
@@ -19,8 +17,6 @@ jobs:
   integration-test:
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - run: bash scripts/integration_test.sh
@@ -28,8 +24,6 @@ jobs:
   backend-p0-p1:
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 25
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - run: bash scripts/backend_p0_p1.sh
@@ -37,8 +31,6 @@ jobs:
   performance:
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - run: bash scripts/performance.sh

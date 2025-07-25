@@ -1,0 +1,34 @@
+name: Coverage CI Controller
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  ut:
+    uses: ./.github/workflows/ut_cov.yml
+    needs: build
+
+  it:
+    uses: ./.github/workflows/it_cov.yml
+    needs: build
+
+  stand_alone_env:
+    uses: ./.github/workflows/stand_alone_env.yml
+    needs: build
+
+  backend:
+    uses: ./.github/workflows/backend_case.yml
+    needs: stand_alone_env
+
+  ui:
+    uses: ./.github/workflows/ui_automation.yml
+    needs: stand_alone_env
+
+  coverage:
+    needs: [ut, it, backend, ui]
+    uses: ./.github/workflows/coverage.yml

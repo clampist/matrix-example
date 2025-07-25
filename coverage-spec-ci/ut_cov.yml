@@ -1,17 +1,10 @@
 name: Ut - cov
 on:
-  push:
-    branches: [feature/**]
+  workflow_call:
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
-
   ut:
-    needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - run: |

@@ -6,3 +6,10 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/build.yml
+
+  backend-case:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/backend_case.sh

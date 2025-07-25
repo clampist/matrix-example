@@ -1,17 +1,10 @@
 name: It - cov
 on:
-  push:
-    branches: [feature/**]
+  workflow_call:
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
-
   integration-test:
-    needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - run: |

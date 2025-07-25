@@ -1,21 +1,11 @@
 name: UI Automation - cov
-
 on:
-  push:
-    branches: [ main, master ]
+  workflow_call:
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
-
-  stand_alone_env:
-    needs: build
-    uses: ./.github/workflows/stand_alone_env.yml
-
   test:
-    needs: build
-    timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

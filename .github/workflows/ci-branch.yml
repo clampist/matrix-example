@@ -1,7 +1,7 @@
 name: CI - Branch
 on:
   push:
-    branches-ignore: [master, release/**]
+    branches: [branch/**]
 
 jobs:
   build:
