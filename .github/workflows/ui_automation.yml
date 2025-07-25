@@ -5,7 +5,11 @@ on:
     branches: [ main, master ]
 
 jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
   test:
+    needs: build
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:

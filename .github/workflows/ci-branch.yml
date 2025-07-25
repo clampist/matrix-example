@@ -13,10 +13,3 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: bash scripts/backend_p0_p1.sh
-
-  ui-automation:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: bash scripts/ui_automation.sh

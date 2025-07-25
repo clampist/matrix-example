@@ -2,10 +2,14 @@ name: Playwright Tests - Online UI Automation
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # 每天凌晨 3 点执行
+    - cron: '0 3 * * *'
 
 jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
   test:
+    needs: build
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
