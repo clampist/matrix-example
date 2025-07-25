@@ -1,54 +1,44 @@
 # matrix-example
 
 ```mermaid
-flowchart LR
-    subgraph CI-local
-        L1[Checkout Code]
-        L2[Setup Java & Dependencies]
-        L3[Build]
-        L4[Test]
-        L1 --> L2 --> L3 --> L4
-    end
+graph LR  
+  CI --> local
+  CI --> master
+  CI --> branch
+  CI --> release
 
-    subgraph CI-branch
-        B1[Trigger on Pull Request or Push]
-        B2[Checkout Code]
-        B3[Setup Java & Dependencies]
-        B4[Build]
-        B5[Test]
-        B6[Static Code Analysis]
-        B7[Upload Artifacts]
-        B1 --> B2 --> B3 --> B4 --> B5 --> B6 --> B7
-    end
+  %% === local ===
+  local --> local_build[build]
+  local_build --> local_ut[ut]
+  local_build --> local_integration[Integration Testing]
+  local_build --> local_p0[P0 backend cases]
+  local_build --> local_smart[smart cases]
+  local_build --> local_new[new case]
+  local --> local_formatting[formatting]
+  local --> local_security[security]
+  local --> local_sonar[sonar]
 
-    subgraph CI-master
-        M1[Trigger on Push to master]
-        M2[Checkout Code]
-        M3[Setup Java & Dependencies]
-        M4[Build]
-        M5[Test]
-        M6[Security Scan]
-        M7[Upload Artifacts to Snapshot Repo]
-        M1 --> M2 --> M3 --> M4 --> M5 --> M6 --> M7
-    end
+  %% === master ===
+  master --> master_build[build]
+  master_build --> master_ut[ut]
+  master_build --> master_integration[Integration Testing]
+  master_build --> master_backend[P0 + P1 backend cases]
+  master_build --> master_ui[ui automation]
+  master_build --> master_perf[performance]
 
-    subgraph CI-release
-        R1[Trigger on Tag Push]
-        R2[Checkout Code]
-        R3[Setup Java & Dependencies]
-        R4[Build]
-        R5[Test]
-        R6[Publish Release Artifacts]
-        R7[Tag Git Version]
-        R1 --> R2 --> R3 --> R4 --> R5 --> R6 --> R7
-    end
+  %% Group coverage dependencies
+  master_ut --> coverage
+  master_integration --> coverage
+  master_backend --> coverage
+  master_ui --> coverage
 
-    subgraph coverage
-        C1[Checkout Code]
-        C2[Setup Java]
-        C3[Run Tests with Coverage]
-        C4[Generate Report]
-        C5[Upload Coverage Report]
-        C1 --> C2 --> C3 --> C4 --> C5
-    end
+  coverage[coverage]
+
+  %% === branch ===
+  branch --> branch_build[build]
+  branch_build --> branch_case[P0 + P1 case]
+  branch_build --> branch_ui[ui automation]
+
+  %% === release ===
+  release --> release_ui[online ui - crontab]
 ```
