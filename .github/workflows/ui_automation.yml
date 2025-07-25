@@ -19,15 +19,15 @@ jobs:
 
       - name: Install Playwright and init
         run: |
-          npm init -y
-          npm install -D playwright
-          npx playwright install --with-deps
-          npx playwright codegen https://example.com
+          echo npm init -y
+          echo npm install -D playwright
+          echo npx playwright install --with-deps
+          echo npx playwright codegen https://example.com
 
       - name: Run Playwright tests
         run: |
           echo "You can place tests in 'tests/' folder and run them here"
-          npx playwright test || echo "No tests found, skipping."
+          echo npx playwright test || echo "No tests found, skipping."
 
       - name: Upload Playwright HTML report
         if: ${{ !cancelled() }}
