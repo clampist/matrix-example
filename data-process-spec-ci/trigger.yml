@@ -1,0 +1,40 @@
+name: Big Data Process Trigger
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start pipeline
+        run: bash scripts/check_if_need_trigger_process.sh
+
+  query-filter:
+    uses: ./.github/workflows/query-filter.yml
+    needs: trigger
+
+  product-sample:
+    uses: ./.github/workflows/product-sample.yml
+    needs: trigger
+
+  query-kg:
+    uses: ./.github/workflows/query-kg.yml
+    needs: query-filter
+
+  product-kg:
+    uses: ./.github/workflows/product-kg.yml
+    needs: product-sample
+
+  query-product:
+    uses: ./.github/workflows/query-product.yml
+    needs: [query-kg, product-kg]
+
+  evaluation-tasks:
+    uses: ./.github/workflows/evaluation.yml
+    needs: query-product

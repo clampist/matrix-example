@@ -1,0 +1,9 @@
+name: Query Product Matching
+on:
+  workflow_call:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: bash scripts/query_product_match.sh

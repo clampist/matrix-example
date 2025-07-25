@@ -1,0 +1,20 @@
+name: Ut - cov
+on:
+  push:
+    branches: [feature/**]
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  ut:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          bash scripts/ut_cov.sh
+          bash scripts/cov_dump.sh
+          bash scripts/cov_upload.sh

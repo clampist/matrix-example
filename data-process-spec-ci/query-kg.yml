@@ -1,0 +1,9 @@
+name: Query KG
+on:
+  workflow_call:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: bash scripts/query_kg.sh

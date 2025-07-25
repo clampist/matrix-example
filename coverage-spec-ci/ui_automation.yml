@@ -1,0 +1,52 @@
+name: UI Automation - cov
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  stand_alone_env:
+    needs: build
+    uses: ./.github/workflows/stand_alone_env.yml
+
+  test:
+    needs: build
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Playwright and init
+        run: |
+          echo npm init -y
+          echo npm install -D playwright
+          echo npx playwright install --with-deps
+          echo npx playwright codegen https://example.com
+
+      - name: Run Playwright tests
+        run: |
+          echo "You can place tests in 'tests/' folder and run them here"
+          echo npx playwright test || echo "No tests found, skipping."
+
+      - name: Upload Playwright HTML report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Deal with Coverage info
+        uses: actions/upload-artifact@v4
+        run: |
+          bash scripts/automation_cov_dump.sh
+          bash scripts/automation_cov_upload.sh

@@ -1,0 +1,20 @@
+name: It - cov
+on:
+  push:
+    branches: [feature/**]
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  integration-test:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          bash scripts/it_cov.sh
+          bash scripts/cov_dump.sh
+          bash scripts/cov_upload.sh

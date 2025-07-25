@@ -1,0 +1,9 @@
+name: Evaluation Tasks
+on:
+  workflow_call:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: bash scripts/evaluate.sh

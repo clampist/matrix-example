@@ -1,0 +1,20 @@
+name: Code Coverage
+on:
+  workflow_run:
+    workflows:
+      - Ut - cov
+      - It - cov
+      - Backend case - cov
+      - UI Automation - cov
+    types:
+      - completed
+
+jobs:
+  coverage:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/coverage.sh
